@@ -1,0 +1,7 @@
+interface calc_numerica {
+
+    boolean getIpFromRegion(in int regionCode, out string ret);
+    boolean sendPlayer(in string playerIP);	
+    
+
+};
