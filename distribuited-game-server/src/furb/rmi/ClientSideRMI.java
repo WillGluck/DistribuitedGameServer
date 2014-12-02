@@ -14,7 +14,7 @@ public class ClientSideRMI  {
 		
 	}
 	
-	public Player getPlayerInfo() {
+	public Player getPlayerInfo(String targetIP) {
 		return null;
 	}
 	
