@@ -1,5 +1,8 @@
 package furb.corba;
 
+import furb.game.ServerSharedInfo;
+import furb.models.Region;
+
 
 public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 
@@ -18,6 +21,7 @@ public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 
 	@Override
 	public int getPlayerTimestamp(String userName) {
+
 		return 0;
 		// TODO Auto-generated method stub
 		

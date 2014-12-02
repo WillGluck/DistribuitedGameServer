@@ -44,7 +44,7 @@ public class ServerSharedInfo {
 		return self_ip;
 	}
 	
-	public Map<Integer, Region> getResions() {
+	public Map<Integer, Region> getRegions() {
 		return regions;
 	}
 	
