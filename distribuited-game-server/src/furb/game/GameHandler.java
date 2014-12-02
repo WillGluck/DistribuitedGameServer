@@ -6,16 +6,17 @@ import java.util.Map;
 
 import org.apache.thrift.TException;
 
+import furb.models.Region;
 import thrift.stubs.*;
 
 public class GameHandler implements Game.Iface {
 	
 	private String self_ip;
-	private Map<Integer, Player> online_players;
+	private Map<Integer, Region> regions;
 	
 	public GameHandler(String self_ip) {
 		this.self_ip = self_ip;
-		this.online_players = new HashMap<Integer, Player>();
+		this.regions = new HashMap<Integer, Region>();
 	}
 
 	@Override

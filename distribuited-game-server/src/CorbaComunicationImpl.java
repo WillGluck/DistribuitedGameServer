@@ -1,3 +1,5 @@
+import furb.models.Region;
+
 
 
 
@@ -22,7 +24,7 @@ public class CorbaComunicationImpl { //extends CorbaComunicationPOA {
 
 	  public boolean mul_double (double p1, double p2, org.omg.CORBA.ShortHolder ret) {
 	  	  ret.value = new Double(p1 * p2).shortValue();
-		  System.out.println("Executada Multiplicação");  	  
+		  System.out.println("Executada Multiplicaï¿½ï¿½o");  	  
 		  return true;
 		  
 	  };

@@ -2,6 +2,8 @@
 
 import java.rmi.Naming;
 
+import furb.models.Region;
+
 public class ClientSideRMI  {
 	
 	InterfaceRmi rmiInterface;

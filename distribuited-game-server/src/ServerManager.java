@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import furb.models.Region;
+
 public class ServerManager {
 	
 	public static final String serverIP = "127.168.0.9";

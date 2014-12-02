@@ -2,6 +2,8 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import furb.models.Region;
+
 public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 
 	private static final long serialVersionUID = 1L;
