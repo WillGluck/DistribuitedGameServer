@@ -1,7 +1,7 @@
 interface calc_numerica {
 
-    boolean getIpFromRegion(in int regionCode, out string ret);
-    boolean sendPlayer(in string playerIP);	
-    
+    boolean checkForRegion(in int regionCode, out boolean ret);
+    boolean updatePlayer(in string userName);  
+    boolean getPlayerTimestamp(in string userName, out long timestamp);
 
 };

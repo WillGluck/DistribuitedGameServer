@@ -4,7 +4,8 @@ public class Player {
 	
 	public static final String USERNAME="username";
 	public static final String REGIONCODE="regioncode";
-	public static final String POINTS="points";
+	public static final String POSITION_X="position";
+	public static final String 
 	
 	private String userName;	
 	private String regionCode;
