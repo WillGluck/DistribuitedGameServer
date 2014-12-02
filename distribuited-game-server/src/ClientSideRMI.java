@@ -1,8 +1,9 @@
 
 
 import java.rmi.Naming;
+import java.util.List;
 
-import furb.models.Region;
+import thrift.stubs.Player;
 
 public class ClientSideRMI  {
 	
@@ -11,42 +12,47 @@ public class ClientSideRMI  {
 	public ClientSideRMI() {
 		
 	}
-//	
-//	public static void main(String[] args) {
-//		ClientSideRMI rmi = new ClientSideRMI();
-//		boolean status = rmi.checkStatus("localhost");
-//		System.out.println(status);
-//	}
 	
-	public void replicatePlayerChanges(String sql, String ip) {
+	public Player getPlayerInfo() {
+		return null;
+	}
+	
+	public void newServer(String targetIP, String newIP) {
 		try {
-			InterfaceRmi rmiInterface = (InterfaceRmi)Naming.lookup("//" + ip + "/InterfaceRmi");
-			rmiInterface.replicatePlayerChanges(sql);
+			InterfaceRmi rmiInterface = (InterfaceRmi)Naming.lookup("//" + targetIP + "/InterfaceRmi");
+			rmiInterface.newServer(newIP);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public List<Integer> broadcastNewServer(String targetIP, String newIP) {
+		List<Integer> regions = null;
+		try {
+			InterfaceRmi rmiInterface = (InterfaceRmi)Naming.lookup("//" + targetIP + "/InterfaceRmi");
+			regions = rmiInterface.broadcastNewServer(newIP);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return regions;
+	}
+	
+	public void removeRegion(String targetIP, int regionCode) {
+		try {
+			InterfaceRmi rmiInterface = (InterfaceRmi)Naming.lookup("//" + targetIP + "/InterfaceRmi");
+			rmiInterface.removeRegion(regionCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public boolean checkStatus(String ip) {
-		boolean status = false;
+	public void addRegion(String targetIP, int regionCode) {
 		try {
-			InterfaceRmi rmiInterface = (InterfaceRmi)Naming.lookup("//" + ip + "/InterfaceRmi");
-			status = rmiInterface.checkStatus();
+			InterfaceRmi rmiInterface = (InterfaceRmi)Naming.lookup("//" + targetIP + "/InterfaceRmi");
+			rmiInterface.addRegion(regionCode);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		return status;
-	}
-	
-	public Region getOneRegion(String ip)  {
-		Region region = null;
-		try {
-			InterfaceRmi rmiInterface = (InterfaceRmi)Naming.lookup("//" + ip + "/InterfaceRmi");
-			region = rmiInterface.getOneRegion();			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return region;
-	}	   
+		}		
+	}   
 
 }
