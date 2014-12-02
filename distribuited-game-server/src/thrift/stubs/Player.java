@@ -38,11 +38,11 @@ import org.slf4j.LoggerFactory;
 public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, java.io.Serializable, Cloneable, Comparable<Player> {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("Player");
 
-  private static final org.apache.thrift.protocol.TField ID_FIELD_DESC = new org.apache.thrift.protocol.TField("id", org.apache.thrift.protocol.TType.I32, (short)1);
-  private static final org.apache.thrift.protocol.TField NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("name", org.apache.thrift.protocol.TType.STRING, (short)2);
-  private static final org.apache.thrift.protocol.TField POSITION_FIELD_DESC = new org.apache.thrift.protocol.TField("position", org.apache.thrift.protocol.TType.LIST, (short)3);
-  private static final org.apache.thrift.protocol.TField LIFE_FIELD_DESC = new org.apache.thrift.protocol.TField("life", org.apache.thrift.protocol.TType.I32, (short)4);
-  private static final org.apache.thrift.protocol.TField AREA_FIELD_DESC = new org.apache.thrift.protocol.TField("area", org.apache.thrift.protocol.TType.I32, (short)5);
+  private static final org.apache.thrift.protocol.TField NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("name", org.apache.thrift.protocol.TType.STRING, (short)1);
+  private static final org.apache.thrift.protocol.TField POSITION_FIELD_DESC = new org.apache.thrift.protocol.TField("position", org.apache.thrift.protocol.TType.LIST, (short)2);
+  private static final org.apache.thrift.protocol.TField LIFE_FIELD_DESC = new org.apache.thrift.protocol.TField("life", org.apache.thrift.protocol.TType.I32, (short)3);
+  private static final org.apache.thrift.protocol.TField AREA_FIELD_DESC = new org.apache.thrift.protocol.TField("area", org.apache.thrift.protocol.TType.I32, (short)4);
+  private static final org.apache.thrift.protocol.TField LAST_SAVED_FIELD_DESC = new org.apache.thrift.protocol.TField("last_saved", org.apache.thrift.protocol.TType.I64, (short)5);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -50,19 +50,20 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     schemes.put(TupleScheme.class, new PlayerTupleSchemeFactory());
   }
 
-  public int id; // required
   public String name; // required
   public List<Integer> position; // required
   public int life; // required
   public int area; // required
+  public long last_saved; // required
+  public long attackCooldown;
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    ID((short)1, "id"),
-    NAME((short)2, "name"),
-    POSITION((short)3, "position"),
-    LIFE((short)4, "life"),
-    AREA((short)5, "area");
+    NAME((short)1, "name"),
+    POSITION((short)2, "position"),
+    LIFE((short)3, "life"),
+    AREA((short)4, "area"),
+    LAST_SAVED((short)5, "last_saved");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -77,16 +78,16 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
      */
     public static _Fields findByThriftId(int fieldId) {
       switch(fieldId) {
-        case 1: // ID
-          return ID;
-        case 2: // NAME
+        case 1: // NAME
           return NAME;
-        case 3: // POSITION
+        case 2: // POSITION
           return POSITION;
-        case 4: // LIFE
+        case 3: // LIFE
           return LIFE;
-        case 5: // AREA
+        case 4: // AREA
           return AREA;
+        case 5: // LAST_SAVED
+          return LAST_SAVED;
         default:
           return null;
       }
@@ -127,15 +128,13 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
   }
 
   // isset id assignments
-  private static final int __ID_ISSET_ID = 0;
-  private static final int __LIFE_ISSET_ID = 1;
-  private static final int __AREA_ISSET_ID = 2;
+  private static final int __LIFE_ISSET_ID = 0;
+  private static final int __AREA_ISSET_ID = 1;
+  private static final int __LAST_SAVED_ISSET_ID = 2;
   private byte __isset_bitfield = 0;
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.ID, new org.apache.thrift.meta_data.FieldMetaData("id", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.NAME, new org.apache.thrift.meta_data.FieldMetaData("name", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.POSITION, new org.apache.thrift.meta_data.FieldMetaData("position", org.apache.thrift.TFieldRequirementType.DEFAULT, 
@@ -145,6 +144,8 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.AREA, new org.apache.thrift.meta_data.FieldMetaData("area", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+    tmpMap.put(_Fields.LAST_SAVED, new org.apache.thrift.meta_data.FieldMetaData("last_saved", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Player.class, metaDataMap);
   }
@@ -153,21 +154,21 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
   }
 
   public Player(
-    int id,
     String name,
     List<Integer> position,
     int life,
-    int area)
+    int area,
+    long last_saved)
   {
     this();
-    this.id = id;
-    setIdIsSet(true);
     this.name = name;
     this.position = position;
     this.life = life;
     setLifeIsSet(true);
     this.area = area;
     setAreaIsSet(true);
+    this.last_saved = last_saved;
+    setLast_savedIsSet(true);
   }
 
   /**
@@ -175,7 +176,6 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
    */
   public Player(Player other) {
     __isset_bitfield = other.__isset_bitfield;
-    this.id = other.id;
     if (other.isSetName()) {
       this.name = other.name;
     }
@@ -185,6 +185,7 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     }
     this.life = other.life;
     this.area = other.area;
+    this.last_saved = other.last_saved;
   }
 
   public Player deepCopy() {
@@ -193,37 +194,14 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
 
   @Override
   public void clear() {
-    setIdIsSet(false);
-    this.id = 0;
     this.name = null;
     this.position = null;
     setLifeIsSet(false);
     this.life = 0;
     setAreaIsSet(false);
     this.area = 0;
-  }
-
-  public int getId() {
-    return this.id;
-  }
-
-  public Player setId(int id) {
-    this.id = id;
-    setIdIsSet(true);
-    return this;
-  }
-
-  public void unsetId() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __ID_ISSET_ID);
-  }
-
-  /** Returns true if field id is set (has been assigned a value) and false otherwise */
-  public boolean isSetId() {
-    return EncodingUtils.testBit(__isset_bitfield, __ID_ISSET_ID);
-  }
-
-  public void setIdIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __ID_ISSET_ID, value);
+    setLast_savedIsSet(false);
+    this.last_saved = 0;
   }
 
   public String getName() {
@@ -335,16 +313,31 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __AREA_ISSET_ID, value);
   }
 
+  public long getLast_saved() {
+    return this.last_saved;
+  }
+
+  public Player setLast_saved(long last_saved) {
+    this.last_saved = last_saved;
+    setLast_savedIsSet(true);
+    return this;
+  }
+
+  public void unsetLast_saved() {
+    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LAST_SAVED_ISSET_ID);
+  }
+
+  /** Returns true if field last_saved is set (has been assigned a value) and false otherwise */
+  public boolean isSetLast_saved() {
+    return EncodingUtils.testBit(__isset_bitfield, __LAST_SAVED_ISSET_ID);
+  }
+
+  public void setLast_savedIsSet(boolean value) {
+    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LAST_SAVED_ISSET_ID, value);
+  }
+
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
-    case ID:
-      if (value == null) {
-        unsetId();
-      } else {
-        setId((Integer)value);
-      }
-      break;
-
     case NAME:
       if (value == null) {
         unsetName();
@@ -377,14 +370,19 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
       }
       break;
 
+    case LAST_SAVED:
+      if (value == null) {
+        unsetLast_saved();
+      } else {
+        setLast_saved((Long)value);
+      }
+      break;
+
     }
   }
 
   public Object getFieldValue(_Fields field) {
     switch (field) {
-    case ID:
-      return Integer.valueOf(getId());
-
     case NAME:
       return getName();
 
@@ -397,6 +395,9 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     case AREA:
       return Integer.valueOf(getArea());
 
+    case LAST_SAVED:
+      return Long.valueOf(getLast_saved());
+
     }
     throw new IllegalStateException();
   }
@@ -408,8 +409,6 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     }
 
     switch (field) {
-    case ID:
-      return isSetId();
     case NAME:
       return isSetName();
     case POSITION:
@@ -418,6 +417,8 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
       return isSetLife();
     case AREA:
       return isSetArea();
+    case LAST_SAVED:
+      return isSetLast_saved();
     }
     throw new IllegalStateException();
   }
@@ -434,15 +435,6 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
   public boolean equals(Player that) {
     if (that == null)
       return false;
-
-    boolean this_present_id = true;
-    boolean that_present_id = true;
-    if (this_present_id || that_present_id) {
-      if (!(this_present_id && that_present_id))
-        return false;
-      if (this.id != that.id)
-        return false;
-    }
 
     boolean this_present_name = true && this.isSetName();
     boolean that_present_name = true && that.isSetName();
@@ -480,17 +472,21 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
         return false;
     }
 
+    boolean this_present_last_saved = true;
+    boolean that_present_last_saved = true;
+    if (this_present_last_saved || that_present_last_saved) {
+      if (!(this_present_last_saved && that_present_last_saved))
+        return false;
+      if (this.last_saved != that.last_saved)
+        return false;
+    }
+
     return true;
   }
 
   @Override
   public int hashCode() {
     List<Object> list = new ArrayList<Object>();
-
-    boolean present_id = true;
-    list.add(present_id);
-    if (present_id)
-      list.add(id);
 
     boolean present_name = true && (isSetName());
     list.add(present_name);
@@ -512,6 +508,11 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     if (present_area)
       list.add(area);
 
+    boolean present_last_saved = true;
+    list.add(present_last_saved);
+    if (present_last_saved)
+      list.add(last_saved);
+
     return list.hashCode();
   }
 
@@ -523,16 +524,6 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
 
     int lastComparison = 0;
 
-    lastComparison = Boolean.valueOf(isSetId()).compareTo(other.isSetId());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetId()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.id, other.id);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
     lastComparison = Boolean.valueOf(isSetName()).compareTo(other.isSetName());
     if (lastComparison != 0) {
       return lastComparison;
@@ -573,6 +564,16 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
         return lastComparison;
       }
     }
+    lastComparison = Boolean.valueOf(isSetLast_saved()).compareTo(other.isSetLast_saved());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetLast_saved()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.last_saved, other.last_saved);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
     return 0;
   }
 
@@ -593,10 +594,6 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     StringBuilder sb = new StringBuilder("Player(");
     boolean first = true;
 
-    sb.append("id:");
-    sb.append(this.id);
-    first = false;
-    if (!first) sb.append(", ");
     sb.append("name:");
     if (this.name == null) {
       sb.append("null");
@@ -619,6 +616,10 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     if (!first) sb.append(", ");
     sb.append("area:");
     sb.append(this.area);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("last_saved:");
+    sb.append(this.last_saved);
     first = false;
     sb.append(")");
     return sb.toString();
@@ -665,15 +666,7 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
           break;
         }
         switch (schemeField.id) {
-          case 1: // ID
-            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-              struct.id = iprot.readI32();
-              struct.setIdIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          case 2: // NAME
+          case 1: // NAME
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.name = iprot.readString();
               struct.setNameIsSet(true);
@@ -681,7 +674,7 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 3: // POSITION
+          case 2: // POSITION
             if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
               {
                 org.apache.thrift.protocol.TList _list0 = iprot.readListBegin();
@@ -699,7 +692,7 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 4: // LIFE
+          case 3: // LIFE
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
               struct.life = iprot.readI32();
               struct.setLifeIsSet(true);
@@ -707,10 +700,18 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 5: // AREA
+          case 4: // AREA
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
               struct.area = iprot.readI32();
               struct.setAreaIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 5: // LAST_SAVED
+            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+              struct.last_saved = iprot.readI64();
+              struct.setLast_savedIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
@@ -730,9 +731,6 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
-      oprot.writeFieldBegin(ID_FIELD_DESC);
-      oprot.writeI32(struct.id);
-      oprot.writeFieldEnd();
       if (struct.name != null) {
         oprot.writeFieldBegin(NAME_FIELD_DESC);
         oprot.writeString(struct.name);
@@ -756,6 +754,9 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
       oprot.writeFieldBegin(AREA_FIELD_DESC);
       oprot.writeI32(struct.area);
       oprot.writeFieldEnd();
+      oprot.writeFieldBegin(LAST_SAVED_FIELD_DESC);
+      oprot.writeI64(struct.last_saved);
+      oprot.writeFieldEnd();
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -774,25 +775,22 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
     public void write(org.apache.thrift.protocol.TProtocol prot, Player struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       BitSet optionals = new BitSet();
-      if (struct.isSetId()) {
+      if (struct.isSetName()) {
         optionals.set(0);
       }
-      if (struct.isSetName()) {
+      if (struct.isSetPosition()) {
         optionals.set(1);
       }
-      if (struct.isSetPosition()) {
+      if (struct.isSetLife()) {
         optionals.set(2);
       }
-      if (struct.isSetLife()) {
+      if (struct.isSetArea()) {
         optionals.set(3);
       }
-      if (struct.isSetArea()) {
+      if (struct.isSetLast_saved()) {
         optionals.set(4);
       }
       oprot.writeBitSet(optionals, 5);
-      if (struct.isSetId()) {
-        oprot.writeI32(struct.id);
-      }
       if (struct.isSetName()) {
         oprot.writeString(struct.name);
       }
@@ -811,6 +809,9 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
       if (struct.isSetArea()) {
         oprot.writeI32(struct.area);
       }
+      if (struct.isSetLast_saved()) {
+        oprot.writeI64(struct.last_saved);
+      }
     }
 
     @Override
@@ -818,14 +819,10 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
       TTupleProtocol iprot = (TTupleProtocol) prot;
       BitSet incoming = iprot.readBitSet(5);
       if (incoming.get(0)) {
-        struct.id = iprot.readI32();
-        struct.setIdIsSet(true);
-      }
-      if (incoming.get(1)) {
         struct.name = iprot.readString();
         struct.setNameIsSet(true);
       }
-      if (incoming.get(2)) {
+      if (incoming.get(1)) {
         {
           org.apache.thrift.protocol.TList _list5 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.I32, iprot.readI32());
           struct.position = new ArrayList<Integer>(_list5.size);
@@ -838,13 +835,17 @@ public class Player implements org.apache.thrift.TBase<Player, Player._Fields>, 
         }
         struct.setPositionIsSet(true);
       }
-      if (incoming.get(3)) {
+      if (incoming.get(2)) {
         struct.life = iprot.readI32();
         struct.setLifeIsSet(true);
       }
-      if (incoming.get(4)) {
+      if (incoming.get(3)) {
         struct.area = iprot.readI32();
         struct.setAreaIsSet(true);
+      }
+      if (incoming.get(4)) {
+        struct.last_saved = iprot.readI64();
+        struct.setLast_savedIsSet(true);
       }
     }
   }

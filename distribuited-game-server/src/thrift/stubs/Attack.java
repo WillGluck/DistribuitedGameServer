@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
 public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, java.io.Serializable, Cloneable, Comparable<Attack> {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("Attack");
 
-  private static final org.apache.thrift.protocol.TField FROM_FIELD_DESC = new org.apache.thrift.protocol.TField("from", org.apache.thrift.protocol.TType.I32, (short)1);
-  private static final org.apache.thrift.protocol.TField TO_FIELD_DESC = new org.apache.thrift.protocol.TField("to", org.apache.thrift.protocol.TType.I32, (short)2);
+  private static final org.apache.thrift.protocol.TField FROM_FIELD_DESC = new org.apache.thrift.protocol.TField("from", org.apache.thrift.protocol.TType.STRING, (short)1);
+  private static final org.apache.thrift.protocol.TField TO_FIELD_DESC = new org.apache.thrift.protocol.TField("to", org.apache.thrift.protocol.TType.STRING, (short)2);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -47,8 +47,8 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
     schemes.put(TupleScheme.class, new AttackTupleSchemeFactory());
   }
 
-  public int from; // required
-  public int to; // required
+  public String from; // required
+  public String to; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -112,16 +112,13 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
   }
 
   // isset id assignments
-  private static final int __FROM_ISSET_ID = 0;
-  private static final int __TO_ISSET_ID = 1;
-  private byte __isset_bitfield = 0;
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
     tmpMap.put(_Fields.FROM, new org.apache.thrift.meta_data.FieldMetaData("from", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.TO, new org.apache.thrift.meta_data.FieldMetaData("to", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Attack.class, metaDataMap);
   }
@@ -130,23 +127,24 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
   }
 
   public Attack(
-    int from,
-    int to)
+    String from,
+    String to)
   {
     this();
     this.from = from;
-    setFromIsSet(true);
     this.to = to;
-    setToIsSet(true);
   }
 
   /**
    * Performs a deep copy on <i>other</i>.
    */
   public Attack(Attack other) {
-    __isset_bitfield = other.__isset_bitfield;
-    this.from = other.from;
-    this.to = other.to;
+    if (other.isSetFrom()) {
+      this.from = other.from;
+    }
+    if (other.isSetTo()) {
+      this.to = other.to;
+    }
   }
 
   public Attack deepCopy() {
@@ -155,56 +153,56 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
 
   @Override
   public void clear() {
-    setFromIsSet(false);
-    this.from = 0;
-    setToIsSet(false);
-    this.to = 0;
+    this.from = null;
+    this.to = null;
   }
 
-  public int getFrom() {
+  public String getFrom() {
     return this.from;
   }
 
-  public Attack setFrom(int from) {
+  public Attack setFrom(String from) {
     this.from = from;
-    setFromIsSet(true);
     return this;
   }
 
   public void unsetFrom() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __FROM_ISSET_ID);
+    this.from = null;
   }
 
   /** Returns true if field from is set (has been assigned a value) and false otherwise */
   public boolean isSetFrom() {
-    return EncodingUtils.testBit(__isset_bitfield, __FROM_ISSET_ID);
+    return this.from != null;
   }
 
   public void setFromIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __FROM_ISSET_ID, value);
+    if (!value) {
+      this.from = null;
+    }
   }
 
-  public int getTo() {
+  public String getTo() {
     return this.to;
   }
 
-  public Attack setTo(int to) {
+  public Attack setTo(String to) {
     this.to = to;
-    setToIsSet(true);
     return this;
   }
 
   public void unsetTo() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __TO_ISSET_ID);
+    this.to = null;
   }
 
   /** Returns true if field to is set (has been assigned a value) and false otherwise */
   public boolean isSetTo() {
-    return EncodingUtils.testBit(__isset_bitfield, __TO_ISSET_ID);
+    return this.to != null;
   }
 
   public void setToIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __TO_ISSET_ID, value);
+    if (!value) {
+      this.to = null;
+    }
   }
 
   public void setFieldValue(_Fields field, Object value) {
@@ -213,7 +211,7 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
       if (value == null) {
         unsetFrom();
       } else {
-        setFrom((Integer)value);
+        setFrom((String)value);
       }
       break;
 
@@ -221,7 +219,7 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
       if (value == null) {
         unsetTo();
       } else {
-        setTo((Integer)value);
+        setTo((String)value);
       }
       break;
 
@@ -231,10 +229,10 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
   public Object getFieldValue(_Fields field) {
     switch (field) {
     case FROM:
-      return Integer.valueOf(getFrom());
+      return getFrom();
 
     case TO:
-      return Integer.valueOf(getTo());
+      return getTo();
 
     }
     throw new IllegalStateException();
@@ -268,21 +266,21 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
     if (that == null)
       return false;
 
-    boolean this_present_from = true;
-    boolean that_present_from = true;
+    boolean this_present_from = true && this.isSetFrom();
+    boolean that_present_from = true && that.isSetFrom();
     if (this_present_from || that_present_from) {
       if (!(this_present_from && that_present_from))
         return false;
-      if (this.from != that.from)
+      if (!this.from.equals(that.from))
         return false;
     }
 
-    boolean this_present_to = true;
-    boolean that_present_to = true;
+    boolean this_present_to = true && this.isSetTo();
+    boolean that_present_to = true && that.isSetTo();
     if (this_present_to || that_present_to) {
       if (!(this_present_to && that_present_to))
         return false;
-      if (this.to != that.to)
+      if (!this.to.equals(that.to))
         return false;
     }
 
@@ -293,12 +291,12 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
   public int hashCode() {
     List<Object> list = new ArrayList<Object>();
 
-    boolean present_from = true;
+    boolean present_from = true && (isSetFrom());
     list.add(present_from);
     if (present_from)
       list.add(from);
 
-    boolean present_to = true;
+    boolean present_to = true && (isSetTo());
     list.add(present_to);
     if (present_to)
       list.add(to);
@@ -355,11 +353,19 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
     boolean first = true;
 
     sb.append("from:");
-    sb.append(this.from);
+    if (this.from == null) {
+      sb.append("null");
+    } else {
+      sb.append(this.from);
+    }
     first = false;
     if (!first) sb.append(", ");
     sb.append("to:");
-    sb.append(this.to);
+    if (this.to == null) {
+      sb.append("null");
+    } else {
+      sb.append(this.to);
+    }
     first = false;
     sb.append(")");
     return sb.toString();
@@ -380,8 +386,6 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
 
   private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
     try {
-      // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-      __isset_bitfield = 0;
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
     } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
@@ -407,16 +411,16 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
         }
         switch (schemeField.id) {
           case 1: // FROM
-            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-              struct.from = iprot.readI32();
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.from = iprot.readString();
               struct.setFromIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
           case 2: // TO
-            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-              struct.to = iprot.readI32();
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.to = iprot.readString();
               struct.setToIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -437,12 +441,16 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
-      oprot.writeFieldBegin(FROM_FIELD_DESC);
-      oprot.writeI32(struct.from);
-      oprot.writeFieldEnd();
-      oprot.writeFieldBegin(TO_FIELD_DESC);
-      oprot.writeI32(struct.to);
-      oprot.writeFieldEnd();
+      if (struct.from != null) {
+        oprot.writeFieldBegin(FROM_FIELD_DESC);
+        oprot.writeString(struct.from);
+        oprot.writeFieldEnd();
+      }
+      if (struct.to != null) {
+        oprot.writeFieldBegin(TO_FIELD_DESC);
+        oprot.writeString(struct.to);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -469,10 +477,10 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
       }
       oprot.writeBitSet(optionals, 2);
       if (struct.isSetFrom()) {
-        oprot.writeI32(struct.from);
+        oprot.writeString(struct.from);
       }
       if (struct.isSetTo()) {
-        oprot.writeI32(struct.to);
+        oprot.writeString(struct.to);
       }
     }
 
@@ -481,11 +489,11 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
       TTupleProtocol iprot = (TTupleProtocol) prot;
       BitSet incoming = iprot.readBitSet(2);
       if (incoming.get(0)) {
-        struct.from = iprot.readI32();
+        struct.from = iprot.readString();
         struct.setFromIsSet(true);
       }
       if (incoming.get(1)) {
-        struct.to = iprot.readI32();
+        struct.to = iprot.readString();
         struct.setToIsSet(true);
       }
     }
