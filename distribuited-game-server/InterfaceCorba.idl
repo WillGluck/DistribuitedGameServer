@@ -1,7 +1,0 @@
-interface calc_numerica {
-
-    void checkForRegion(in int regionCode, out boolean ret);
-    void updatePlayer(in string userName);  
-    void getPlayerTimestamp(in string userName, out long timestamp);
-
-};
