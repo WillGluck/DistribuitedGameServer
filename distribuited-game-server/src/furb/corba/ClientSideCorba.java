@@ -24,7 +24,7 @@ public class ClientSideCorba {
 		server.updatePlayer(userName);
 	}
 	  
-	public long getPlayerTimestamp(String targetIP, String userName, org.omg.CORBA.LongHolder timestamp) {
+	public long getPlayerTimestamp(String targetIP, String userName) {
 		InterfaceCorba server = this.connectToCorba(targetIP);
 		return server.getPlayerTimestamp(userName);
 	}
