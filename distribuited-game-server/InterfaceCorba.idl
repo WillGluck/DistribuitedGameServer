@@ -1,7 +1,7 @@
 interface calc_numerica {
 
-    boolean checkForRegion(in int regionCode, out boolean ret);
-    boolean updatePlayer(in string userName);  
-    boolean getPlayerTimestamp(in string userName, out long timestamp);
+    void checkForRegion(in int regionCode, out boolean ret);
+    void updatePlayer(in string userName);  
+    void getPlayerTimestamp(in string userName, out long timestamp);
 
 };

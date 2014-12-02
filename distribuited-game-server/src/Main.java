@@ -9,6 +9,8 @@ import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
+import furb.rmi.ServerSideRMI;
+
 public class Main {
 	
 	public static void main(String[] args) {

@@ -1,3 +1,4 @@
+package furb.rmi;
 
 
 import java.rmi.Remote;

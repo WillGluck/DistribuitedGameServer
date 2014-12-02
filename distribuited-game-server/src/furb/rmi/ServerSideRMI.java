@@ -1,3 +1,4 @@
+package furb.rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
