@@ -10,13 +10,16 @@ import furb.rmi.ClientSideRMI;
 public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 
 	@Override
-	public boolean checkForRegion(int regionCode) {		
+	public boolean checkForRegion(int regionCode) {	
+		
+		boolean regionChecked = false;
 		for (Region region :ServerSharedInfo.getInstance().getRegions().values()) {
 			if (region.getRegionNumber() == regionCode) {
-				return true;
-			}
+				regionChecked = true;
+			} 
 		}
-		return false;
+		System.out.println("[CORBA] checkForRegion executado");
+		return regionChecked;
 		
 	}
 
@@ -38,17 +41,21 @@ public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 		ClientSideRMI rmi = new ClientSideRMI();
 		Player player = rmi.getPlayerInfo(serverID, userName);			
 		DataBaseManager.getInstance().updatePlayer(player);	
+		
+		System.out.println("[CORBA] updatePlayer executado");
 	}
 
 	@Override
 	public long getPlayerTimestamp(String userName) {		
 		Player player = DataBaseManager.getInstance().getPlayer(userName);
+		long playerTimestamp;
 		if (player == null) {
-			return 0;
+			playerTimestamp = -1;
 		} else {
-			return player.last_saved;
+			playerTimestamp = player.last_saved;
 		}
-		
+		System.out.println("[COBRBA] getPlayerTimestamp executado");
+		return playerTimestamp;
 	}		
 
 }
