@@ -3,10 +3,8 @@ package furb.game;
 import java.rmi.Naming;
 import java.util.Map;
 
-import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TSimpleServer;
-import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import org.apache.thrift.transport.TTransportException;
@@ -27,10 +25,25 @@ import furb.rmi.ServerSideRMI;
 public class ServerMain {
 	
 	public static void main(String[] args) throws TTransportException {
+		
 		ServerMain.initRMI();
 		ServerMain.initCorba();		
 		ServerMain.initThrift();
+		
 		ServerSharedInfo.instantiate("localhost");
+		
+		if (args.length == 1) {
+			ServerMain.initRegions();	
+		}
+		
+	}
+	
+	private static void initRegions() {
+		ServerSharedInfo.getInstance().getRegions().put(1, new Region(1));
+		ServerSharedInfo.getInstance().getRegions().put(2, new Region(2));
+		ServerSharedInfo.getInstance().getRegions().put(3, new Region(3));
+		ServerSharedInfo.getInstance().getRegions().put(4, new Region(4));
+		ServerSharedInfo.getInstance().getRegions().put(5, new Region(5));
 	}
 	
 	private static void initThrift() {

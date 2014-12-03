@@ -10,9 +10,7 @@ import furb.rmi.ClientSideRMI;
 public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 
 	@Override
-	public boolean checkForRegion(int regionCode) {	
-		ServerSharedInfo.instantiate("localhost"); //XXX para testes, remover dps.
-		
+	public boolean checkForRegion(int regionCode) {		
 		for (Region region :ServerSharedInfo.getInstance().getRegions().values()) {
 			if (region.getRegionNumber() == regionCode) {
 				System.out.println("eita");

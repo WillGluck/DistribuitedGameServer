@@ -1,12 +1,15 @@
 package furb.models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import thrift.stubs.Player;
 
-public class Region {
-	
+public class Region implements Serializable {
+
+	private static final long serialVersionUID = 8263742371187347371L;
+
 	public static final String REGIONCODE="regioncode";
 	
 	private Map<String, Player> players;
