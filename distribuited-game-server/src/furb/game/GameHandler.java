@@ -29,6 +29,8 @@ public class GameHandler implements Game.Iface {
 			return "";
 		}
 		
+		System.out.println("[Thrift] login("+user+")");
+		
 		return this.getServerWithRegion(player.area);
 	}
 
@@ -39,6 +41,8 @@ public class GameHandler implements Game.Iface {
 		serverInfo.lockResource();
 		serverInfo.getRegions().get(player.area).addPlayer(player);
 		serverInfo.unlockResource();
+		
+		System.out.println("[Thrift] get_player("+user+")");
 		
 		return player;
 	}
@@ -62,6 +66,9 @@ public class GameHandler implements Game.Iface {
 				return false;
 			}
 		}
+		
+		System.out.println("[Thrift] move_self("+player.name+", "+player.position.toString()+")");
+		
 		return true;
 	}
 
@@ -70,6 +77,9 @@ public class GameHandler implements Game.Iface {
 		Region region = serverInfo.getRegions().get(regionCode);
 		List<Player> players = new ArrayList<Player>();
 		players.addAll(region.getPlayers().values());
+		
+		System.out.println("[Thrift] update_players(" + regionCode + ")");
+		
 		return players;
 	}
 
@@ -97,6 +107,8 @@ public class GameHandler implements Game.Iface {
 			return true;
 		}
 		
+		System.out.println("[Thrift] attack("+attack.attcker+", "+attack.attacked+")");
+		
 		return false;
 	}
 	
@@ -115,6 +127,8 @@ public class GameHandler implements Game.Iface {
 		Player player = region.getPlayers().get(name);
 		DataBaseManager.getInstance().updatePlayer(player);
 		
+		System.out.println("[Thrift] update_self("+name+")");
+		
 		if (attacks == null)
 			attacks = new ArrayList<Attack>(0);
 		return attacks;
@@ -130,6 +144,8 @@ public class GameHandler implements Game.Iface {
 		String server = this.getServerWithRegion(area);
 		ClientSideCorba corba = new ClientSideCorba();
 		corba.updatePlayer(server, player.name);
+		
+		System.out.println("[Thrift] go_to_area("+area+", "+player.name+")");
 		
 		return server;
 	}

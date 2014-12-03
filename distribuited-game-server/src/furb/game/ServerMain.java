@@ -34,13 +34,13 @@ import furb.webservice.Services;
 public class ServerMain {
 	
 	public static void main(String[] args) throws TTransportException {
+		ServerSharedInfo.instantiate(args[0]);
+		DataBaseManager.instantiate();
+		
 		ServerMain.initWebService(args[0]);
 		ServerMain.initRMI(args[0]);
 		ServerMain.initCorba(args[0]);
 		ServerMain.initThrift();
-		
-		ServerSharedInfo.instantiate(args[0]);
-		DataBaseManager.instantiate();
 		
 		if (args.length == 1) {
 			ServerMain.initRegions();
@@ -56,7 +56,6 @@ public class ServerMain {
 					ServerSharedInfo.getInstance().getSelfIp());
 		}
 		
-		ServerMain.temp();
 	}
 	
 	private static void temp() {

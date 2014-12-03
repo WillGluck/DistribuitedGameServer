@@ -42,7 +42,7 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 		}
 		
 		totalRegions += ServerSharedInfo.getInstance().getRegions().size();		
-		serverMedia = totalRegions / ServerSharedInfo.getInstance().getOnlineServers().size() + 2;
+		serverMedia = totalRegions / (ServerSharedInfo.getInstance().getOnlineServers().size() + 2);
 		int newServerRegions = 0;
 		
 		for (Entry<String, Map<Integer, Region>> entrySet : regionsByServer.entrySet()) {
