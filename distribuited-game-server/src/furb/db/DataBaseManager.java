@@ -66,6 +66,7 @@ public class DataBaseManager {
 	
 	public void updatePlayer(Player player) {
 		try {
+			player.last_saved = System.currentTimeMillis();
 			Statement statement = this.db.createStatement();
 			String sql = "update player set " + LAST_SAVED 	+ " = 'datetime()', " + LIFE_POINTS + " = " + player.life + ", "
 					+ POSITION_X 	+ " = " + player.position.get(0) + ", " + POSITION_Y 	+ " = " + player.position.get(1) + ", " + AREA + " = " + player.area  

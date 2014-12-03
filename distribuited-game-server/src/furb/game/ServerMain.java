@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.ws.Endpoint;
+
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
@@ -25,21 +27,33 @@ import furb.corba.InterfaceCorbaHelper;
 import furb.corba.InterfaceCorbaImpl;
 import furb.db.DataBaseManager;
 import furb.models.Region;
+import furb.rmi.ClientSideRMI;
 import furb.rmi.ServerSideRMI;
+import furb.webservice.Services;
 
 public class ServerMain {
 	
 	public static void main(String[] args) throws TTransportException {
-		
-		ServerMain.initRMI();
-		ServerMain.initCorba();		
+		ServerMain.initWebService(args[0]);
+		ServerMain.initRMI(args[0]);
+		ServerMain.initCorba(args[0]);		
 		ServerMain.initThrift();
 		
-		ServerSharedInfo.instantiate("localhost");
+		ServerSharedInfo.instantiate(args[0]);
 		DataBaseManager.instantiate();
 		
 		if (args.length == 1) {
 			ServerMain.initRegions();
+		} else {
+			ServerSharedInfo.getInstance().lockResource();
+			for (int i = 1; i < args.length; i++) {
+				ServerSharedInfo.getInstance().getOnlineServers().add(args[i]);
+			}
+			ServerSharedInfo.getInstance().unlockResource();
+			
+			ClientSideRMI rmi = new ClientSideRMI();
+			rmi.newServer(ServerSharedInfo.getInstance().getOnlineServers().get(0), 
+					ServerSharedInfo.getInstance().getSelfIp());
 		}
 		
 		ServerMain.temp();
@@ -74,8 +88,6 @@ public class ServerMain {
 			@Override
 			public void run() {
 				try {
-					
-					ServerSharedInfo.instantiate("127.0.0.1");
 					Map<Integer, Region> regions = ServerSharedInfo.getInstance().getRegions();
 					regions.put(1, new Region(1));
 					
@@ -94,13 +106,13 @@ public class ServerMain {
 		}).start();
 	}
 	
-	private static void initCorba() {
+	private static void initCorba(final String ip) {
 		
 		new Thread(new Runnable() {			
 			@Override
 			public void run() {
 				try {
-					String[] aargs = {"localhost"};		      
+					String[] aargs = {ip};
 			       
 		            ORB orb = ORB.init(aargs, null);
 		            InterfaceCorbaImpl interfaceCorba = new InterfaceCorbaImpl();
@@ -129,19 +141,24 @@ public class ServerMain {
           
 	}
 	
-	private static void initRMI() {
+	private static void initRMI(final String ip) {
 		new Thread(new Runnable() {			
 			@Override
 			public void run() {
 				try {			
 					ServerSideRMI obj = new ServerSideRMI();
-				    Naming.rebind("//localhost/InterfaceRmi", obj);		       
+				    Naming.rebind("//" + ip + "/InterfaceRmi", obj);		       
 				    System.out.println("Servidor aguardando requisicoes RMI....");		    
 				} catch (Exception e) {
 					e.printStackTrace();
 				}				
 			}
 		}).start();
+	}
+	
+	private static void initWebService(final String ip) {
+		Endpoint.publish("http://" + ip + ":8080/services", new Services());
+		System.out.println("Servidor aguardando requisicoes web service....");
 	}
 
 }

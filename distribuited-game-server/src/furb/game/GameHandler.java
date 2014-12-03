@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.thrift.TException;
 
+import furb.corba.ClientSideCorba;
 import furb.db.DataBaseManager;
 import furb.models.Region;
 import thrift.stubs.*;
@@ -27,8 +28,8 @@ public class GameHandler implements Game.Iface {
 		if (player == null) {
 			return "";
 		}
-		//TODO request server for region the player is in
-		return serverInfo.getSelfIp();
+		
+		return this.getServerWithRegion(player.area);
 	}
 
 	@Override
@@ -125,8 +126,27 @@ public class GameHandler implements Game.Iface {
 		serverInfo.lockResource();
 		region.getPlayers().remove(player.name);
 		serverInfo.unlockResource();
-		// TODO request areas from server
-		return serverInfo.getSelfIp();
+
+		String server = this.getServerWithRegion(area);
+		ClientSideCorba corba = new ClientSideCorba();
+		corba.updatePlayer(server, player.name);
+		
+		return server;
+	}
+	
+	private String getServerWithRegion(int region) {
+		if (ServerSharedInfo.getInstance().getRegions().containsKey(region))
+			return ServerSharedInfo.getInstance().getSelfIp();
+		
+		String server = null;
+		ClientSideCorba corba = new ClientSideCorba();
+		for (String online_server : ServerSharedInfo.getInstance().getOnlineServers()) {
+			if (corba.checkForRegion(online_server, region)) {
+				server = online_server;
+			}
+		}
+		
+		return server;
 	}
 
 }

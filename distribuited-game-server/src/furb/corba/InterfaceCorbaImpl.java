@@ -36,8 +36,11 @@ public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 		}
 		
 		ClientSideRMI rmi = new ClientSideRMI();
-		Player player = rmi.getPlayerInfo(serverID, userName);			
-		DataBaseManager.getInstance().updatePlayer(player);	
+		Player player = rmi.getPlayerInfo(serverID, userName);
+		if (DataBaseManager.getInstance().getPlayer(userName) != null)
+			DataBaseManager.getInstance().updatePlayer(player);
+		else
+			DataBaseManager.getInstance().insertPlayer(player);
 	}
 
 	@Override
