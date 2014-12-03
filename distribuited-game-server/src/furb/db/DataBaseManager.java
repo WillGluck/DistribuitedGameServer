@@ -2,6 +2,7 @@ package furb.db;
 
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -91,6 +92,7 @@ public class DataBaseManager {
 		try {
 			Statement statement = this.db.createStatement();
 			String sql = "delete from player where " +  USERNAME + " = '" + player.name + "';"; 
+			statement.execute(sql);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
@@ -100,7 +102,11 @@ public class DataBaseManager {
 		try {
 			Class.forName("org.postgresql.Driver");
 			this.db = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "pfafveiou");
-			//this.createTables(); XXX só pra parar de ficar dando exceção se a tabela já existe comentei.
+			DatabaseMetaData dbm = this.db.getMetaData();			
+			ResultSet tables = dbm.getTables(null, null, "player", null);
+			if (!tables.next()) {
+				this.createTables();
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			e.printStackTrace();
