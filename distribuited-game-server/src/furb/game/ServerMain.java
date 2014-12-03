@@ -30,17 +30,15 @@ import furb.rmi.ServerSideRMI;
 public class ServerMain {
 	
 	public static void main(String[] args) throws TTransportException {
-		
+						
 		ServerMain.initRMI();
 		ServerMain.initCorba();		
 		ServerMain.initThrift();
 		
 		ServerSharedInfo.instantiate("localhost");
 		DataBaseManager.instantiate();
-		
-		if (args.length == 1) {
-			ServerMain.initRegions();
-		}
+				
+		ServerMain.initRegions();		
 		
 		ServerMain.temp();
 
