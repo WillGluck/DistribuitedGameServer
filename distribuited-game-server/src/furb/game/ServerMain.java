@@ -19,6 +19,7 @@ import thrift.stubs.Game;
 import furb.corba.InterfaceCorba;
 import furb.corba.InterfaceCorbaHelper;
 import furb.corba.InterfaceCorbaImpl;
+import furb.db.DataBaseManager;
 import furb.models.Region;
 import furb.rmi.ServerSideRMI;
 
@@ -31,11 +32,11 @@ public class ServerMain {
 		ServerMain.initThrift();
 		
 		ServerSharedInfo.instantiate("localhost");
+		DataBaseManager.instantiate();
 		
 		if (args.length == 1) {
-			ServerMain.initRegions();	
-		}
-		
+			ServerMain.initRegions();
+		}		
 	}
 	
 	private static void initRegions() {

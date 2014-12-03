@@ -28,11 +28,14 @@ public class DataBaseManager {
 		this.initDataBase();
 	}
 	
+	public static void instantiate() {
+		instance = new DataBaseManager();
+	}
+	
 	public static DataBaseManager getInstance() {
-		if (DataBaseManager.instance == null) {
-			DataBaseManager.instance = new DataBaseManager();
-		}
-		return DataBaseManager.instance;
+		if (instance != null)
+			return instance;
+		throw new RuntimeException();
 	}
 	
 	public Player getPlayer(String userName) {
