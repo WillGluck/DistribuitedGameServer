@@ -1,6 +1,9 @@
 package furb.game;
 
 import java.rmi.Naming;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.thrift.server.TServer;
@@ -16,6 +19,7 @@ import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
 import thrift.stubs.Game;
+import thrift.stubs.Player;
 import furb.corba.InterfaceCorba;
 import furb.corba.InterfaceCorbaHelper;
 import furb.corba.InterfaceCorbaImpl;
@@ -36,7 +40,25 @@ public class ServerMain {
 		
 		if (args.length == 1) {
 			ServerMain.initRegions();
-		}		
+		}
+		
+		ServerMain.temp();
+
+	}
+	
+	private static void temp() {
+		
+		Player player = new Player();
+		player.name = "caique";
+		player.last_saved = new Date().getTime();
+		player.life = 100;
+		player.area = 1;
+		List<Integer> positions = new ArrayList<Integer>();
+		positions.add(20);
+		positions.add(20);
+		player.position = positions;
+		
+		DataBaseManager.getInstance().insertPlayer(player);
 	}
 	
 	private static void initRegions() {
