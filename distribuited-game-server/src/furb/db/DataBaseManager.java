@@ -84,12 +84,20 @@ public class DataBaseManager {
 		}		
 	}
 	
+	public void deletePlayer(Player player) {
+		try {
+			Statement statement = this.db.createStatement();
+			String sql = "delete from player where " +  USERNAME + " = '" + player.name + "';"; 
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+	}
 	
 	private void initDataBase() {
 		try {
 			Class.forName("org.postgresql.Driver");
 			this.db = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "pfafveiou");
-			this.createTables();
+			//this.createTables(); XXX só pra parar de ficar dando exceção se a tabela já existe comentei.
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			e.printStackTrace();
@@ -109,26 +117,26 @@ public class DataBaseManager {
 		
 	}
 	
-		public static void main(String[] args) {
-			
-			Player player = new Player();
-			player.name = "caique";
-			player.last_saved = new Date().getTime();
-			player.life = 90;
-			List<Integer> positions = new ArrayList<Integer>();
-			positions.add(30);
-			positions.add(20);
-			player.position = positions;
-			
-			DataBaseManager.getInstance().insertPlayer(player);
-			Player playerOne = DataBaseManager.getInstance().getPlayer("william");
-			Player playerTwo = DataBaseManager.getInstance().getPlayer("caique");
-			
-			playerTwo.life = 150;
-			
-			DataBaseManager.getInstance().updatePlayer(playerTwo);
-			playerTwo = DataBaseManager.getInstance().getPlayer("caique");
-			
-	}
+//		public static void main(String[] args) {
+//			
+//			Player player = new Player();
+//			player.name = "caique";
+//			player.last_saved = new Date().getTime();
+//			player.life = 90;
+//			List<Integer> positions = new ArrayList<Integer>();
+//			positions.add(30);
+//			positions.add(20);
+//			player.position = positions;
+//			
+//			DataBaseManager.getInstance().insertPlayer(player);
+//			Player playerOne = DataBaseManager.getInstance().getPlayer("william");
+//			Player playerTwo = DataBaseManager.getInstance().getPlayer("caique");
+//			
+//			playerTwo.life = 150;
+//			
+//			DataBaseManager.getInstance().updatePlayer(playerTwo);
+//			playerTwo = DataBaseManager.getInstance().getPlayer("caique");
+//			
+//	}
 
 }
