@@ -13,7 +13,7 @@ def get_client(server):
 	client = Client(protocol)
 	return (client, transport)
 
-client, transport = get_client('127.0.0.1')
+client, transport = get_client('201.54.204.8')
 transport.open()
 username = str(raw_input("input username: "))
 server = client.login(username)
@@ -22,8 +22,9 @@ transport.close()
 
 client, transport = get_client(server)
 transport.open()
-players = client.update_players(1)
+
 player = client.get_player(username)
+players = client.update_players(player.area)
 
 while True:
 	cmd = str(raw_input('Command: '))
@@ -71,8 +72,8 @@ while True:
 				player = client.get_player(username)
 				print 'You are now in area ', area
 			else:
-				print 'Cannot go to this area'
-		except:
+				print 'Cannot go to this area ----'
+		except ValueError:
 			print 'Cannot go to this area'
 	else:
 		print 'Wrong command try again'

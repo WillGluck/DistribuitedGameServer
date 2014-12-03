@@ -70,7 +70,7 @@ public class DataBaseManager {
 			Statement statement = this.db.createStatement();
 			String sql = "update player set " + LIFE_POINTS + " = " + player.life + ", "
 					+ POSITION_X 	+ " = " + player.position.get(0) + ", " + POSITION_Y 	+ " = " + player.position.get(1) + ", " + AREA + " = " + player.area  
-					+ LAST_SAVED + " = " + new Date().getTime() + " where " + USERNAME + " = '"	+ player.name + "';"; 
+					+ "," + LAST_SAVED + " = " + new Date().getTime() + " where " + USERNAME + " = '"	+ player.name + "';"; 
 											  
 			statement.execute(sql);			
 		} catch (SQLException sqle) {

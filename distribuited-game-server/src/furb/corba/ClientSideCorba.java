@@ -34,8 +34,8 @@ public class ClientSideCorba {
 		InterfaceCorba server = null;
 		  
 			try {
-				
-				ORB orb = ORB.init(new String[]{targetIP}, null);
+				String args2 = "-ORBInitialHost " + targetIP;
+				ORB orb = ORB.init(args2.split(" "), null);
 				org.omg.CORBA.Object objRef;
 				objRef = orb.resolve_initial_references("NameService");
 				NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);

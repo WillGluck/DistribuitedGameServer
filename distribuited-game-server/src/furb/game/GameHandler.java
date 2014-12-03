@@ -67,6 +67,9 @@ public class GameHandler implements Game.Iface {
 			}
 		}
 		
+		ServerSharedInfo.getInstance().lockResource();
+		ServerSharedInfo.getInstance().getRegions().get(player.area).getPlayers().put(player.name, player);
+		ServerSharedInfo.getInstance().unlockResource();
 		System.out.println("[Thrift] move_self("+player.name+", "+player.position.toString()+")");
 		
 		return true;
@@ -103,7 +106,10 @@ public class GameHandler implements Game.Iface {
 			}
 			attack_buffer.get(to.name).add(attack);
 			from.attackCooldown = System.currentTimeMillis();
-			serverInfo.unlockResource();
+						
+			ServerSharedInfo.getInstance().getRegions().get(to.area).getPlayers().put(to.name, to);
+						
+			serverInfo.unlockResource();			
 			return true;
 		}
 		
@@ -140,6 +146,9 @@ public class GameHandler implements Game.Iface {
 		serverInfo.lockResource();
 		region.getPlayers().remove(player.name);
 		serverInfo.unlockResource();
+		
+		player.area = area;
+		DataBaseManager.getInstance().updatePlayer(player);
 
 		String server = this.getServerWithRegion(area);
 		ClientSideCorba corba = new ClientSideCorba();

@@ -2,7 +2,9 @@ package furb.rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -51,7 +53,9 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 		for (Entry<String, Map<Integer, Region>> entrySet : regionsByServer.entrySet()) {
 			if (entrySet.getValue().size() > serverMedia) {
 				int difference = entrySet.getValue().size() - serverMedia;
-				for (Region region : entrySet.getValue().values()) {
+				List<Region> regions = new ArrayList<Region>();
+				regions.addAll(entrySet.getValue().values());
+				for (Region region : regions) {
 					rmi.removeRegion(entrySet.getKey(), region.getRegionNumber());
 					rmi.addRegion(ip, region.getRegionNumber());
 					newServerRegions++;
@@ -61,14 +65,17 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 				}
 			}
 		}
-		
+		ServerSharedInfo.getInstance().lockResource();
 		ServerSharedInfo.getInstance().getOnlineServers().add(ip);
+		ServerSharedInfo.getInstance().unlockResource();
 		System.out.println("[RMI] newServer executado");
 	}
 
 	@Override
 	public Map<Integer, Region> broadcastNewServer(String ip) throws RemoteException {
+		ServerSharedInfo.getInstance().lockResource();
 		ServerSharedInfo.getInstance().getOnlineServers().add(ip);
+		ServerSharedInfo.getInstance().unlockResource();
 		System.out.println("[RMI] broadcastNewServer executado");
 		return ServerSharedInfo.getInstance().getRegions();
 	}
