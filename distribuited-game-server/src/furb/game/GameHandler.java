@@ -38,7 +38,7 @@ public class GameHandler implements Game.Iface {
 		player.position.add(1);
 		player.last_saved = System.currentTimeMillis();
 		serverInfo.lockResource();
-		serverInfo.getResions().get(player.area).addPlayer(player);
+		serverInfo.getRegions().get(player.area).addPlayer(player);
 		serverInfo.unlockResource();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class GameHandler implements Game.Iface {
 
 	@Override
 	public boolean move_self(Player player) throws TException {
-		Region region = serverInfo.getResions().get(player.area);
+		Region region = serverInfo.getRegions().get(player.area);
 		
 		if (region.getBound_x() <= player.position.get(0) ||
 				region.getBound_y() <= player.position.get(1)) {
@@ -70,7 +70,7 @@ public class GameHandler implements Game.Iface {
 
 	@Override
 	public List<Player> update_players(int regionCode) throws TException {
-		Region region = serverInfo.getResions().get(regionCode);
+		Region region = serverInfo.getRegions().get(regionCode);
 		List<Player> players = new ArrayList<Player>();
 		players.addAll(region.getPlayers().values());
 		return players;
@@ -79,7 +79,7 @@ public class GameHandler implements Game.Iface {
 	@Override
 	public boolean attack(Attack attack) throws TException {
 		Region region = null;
-		for (Region region2 : serverInfo.getResions().values()) {
+		for (Region region2 : serverInfo.getRegions().values()) {
 			if (region2.getPlayers().containsKey(attack.attcker)) {
 				region = region2;
 				break;
@@ -115,7 +115,7 @@ public class GameHandler implements Game.Iface {
 
 	@Override
 	public String go_to_area(int area, Player player) throws TException {
-		Region region = serverInfo.getResions().get(player.area);
+		Region region = serverInfo.getRegions().get(player.area);
 		serverInfo.lockResource();
 		region.getPlayers().remove(player.name);
 		serverInfo.unlockResource();

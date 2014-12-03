@@ -14,7 +14,7 @@ public class ClientSideCorba {
 		
 	}		
 	    
-	public boolean checkForRegion(String targetIP, int regionCode) {		  
+	public boolean checkForRegion(String targetIP, int regionCode) {
 		InterfaceCorba server = this.connectToCorba(targetIP);
 		return server.checkForRegion((short)regionCode);
 	}
@@ -24,7 +24,7 @@ public class ClientSideCorba {
 		server.updatePlayer(userName);
 	}
 	  
-	public long getPlayerTimestamp(String targetIP, String userName, org.omg.CORBA.LongHolder timestamp) {
+	public long getPlayerTimestamp(String targetIP, String userName) {
 		InterfaceCorba server = this.connectToCorba(targetIP);
 		return server.getPlayerTimestamp(userName);
 	}

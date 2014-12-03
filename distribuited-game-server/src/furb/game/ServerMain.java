@@ -17,7 +17,7 @@ public class ServerMain {
 	
 	public static void main(String[] args) throws TTransportException {
 		ServerSharedInfo.instantiate("127.0.0.1");
-		Map<Integer, Region> regions = ServerSharedInfo.getInstance().getResions();
+		Map<Integer, Region> regions = ServerSharedInfo.getInstance().getRegions();
 		regions.put(1, new Region(1));
 		
 		GameHandler handler = new GameHandler();

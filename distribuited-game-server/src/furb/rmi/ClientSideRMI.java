@@ -4,6 +4,7 @@ package furb.rmi;
 import java.rmi.Naming;
 import java.util.List;
 
+import furb.db.DataBaseManager;
 import thrift.stubs.Player;
 
 public class ClientSideRMI  {
@@ -14,7 +15,13 @@ public class ClientSideRMI  {
 		
 	}
 	
-	public Player getPlayerInfo() {
+	public Player getPlayerInfo(String targetIP, String userName) {
+		try {
+			InterfaceRmi rmiInterface = (InterfaceRmi)Naming.lookup("//" + targetIP + "/InterfaceRmi");
+			return rmiInterface.getPlayerInfo(userName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
