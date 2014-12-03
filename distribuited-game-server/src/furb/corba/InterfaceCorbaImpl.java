@@ -1,5 +1,7 @@
 package furb.corba;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.SharedInputStream;
+
 import thrift.stubs.Player;
 import furb.db.DataBaseManager;
 import furb.game.ServerSharedInfo;
@@ -10,9 +12,12 @@ import furb.rmi.ClientSideRMI;
 public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 
 	@Override
-	public boolean checkForRegion(short regionCode) {
+	public boolean checkForRegion(short regionCode) {	
+		ServerSharedInfo.instantiate("localhost");
+		
 		for (Region region :ServerSharedInfo.getInstance().getRegions().values()) {
 			if (region.getRegionNumber() == regionCode) {
+				System.out.println("eita");
 				return true;
 			}
 		}
@@ -33,8 +38,10 @@ public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 			}
 		}
 		ClientSideRMI rmi = new ClientSideRMI();
-		Player player = rmi.getPlayerInfo(serverID);
-		DataBaseManager.getInstance().updatePlayer(player);		
+		Player player = rmi.getPlayerInfo(serverID, userName);
+		ServerSharedInfo.getInstance().lockResource();
+		DataBaseManager.getInstance().updatePlayer(player);
+		ServerSharedInfo.getInstance().unlockResource();
 	}
 
 	@Override

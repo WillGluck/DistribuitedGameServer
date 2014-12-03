@@ -9,7 +9,7 @@ import thrift.stubs.Player;
 
 public interface InterfaceRmi extends Remote{
 	
-	public Player getPlayerInfo() throws RemoteException;
+	public Player getPlayerInfo(String userName) throws RemoteException;
 	
 	public void newServer(String ip) throws RemoteException;
 	

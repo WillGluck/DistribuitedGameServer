@@ -14,7 +14,7 @@ public class ClientSideCorba {
 		
 	}		
 	    
-	public boolean checkForRegion(String targetIP, int regionCode) {		  
+	public boolean checkForRegion(String targetIP, int regionCode) {
 		InterfaceCorba server = this.connectToCorba(targetIP);
 		return server.checkForRegion((short)regionCode);
 	}

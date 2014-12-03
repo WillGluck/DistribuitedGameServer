@@ -27,28 +27,6 @@ public class DataBaseManager {
 		this.initDataBase();
 	}
 	
-/*	public static void main(String[] args) {
-		
-		Player player = new Player();
-		player.name = "caique";
-		player.last_saved = new Date().getTime();
-		player.life = 90;
-		List<Integer> positions = new ArrayList<Integer>();
-		positions.add(30);
-		positions.add(20);
-		player.position = positions;
-		
-		DataBaseManager.getInstance().insertPlayer(player);
-		Player playerOne = DataBaseManager.getInstance().getPlayer("william");
-		Player playerTwo = DataBaseManager.getInstance().getPlayer("caique");
-		
-		playerTwo.life = 150;
-		
-		DataBaseManager.getInstance().updatePlayer(playerTwo);
-		playerTwo = DataBaseManager.getInstance().getPlayer("caique");
-		
-	}*/
-	
 	public static DataBaseManager getInstance() {
 		if (DataBaseManager.instance == null) {
 			DataBaseManager.instance = new DataBaseManager();
@@ -127,5 +105,27 @@ public class DataBaseManager {
 		}
 		
 	}
+	
+	/*	public static void main(String[] args) {
+			
+			Player player = new Player();
+			player.name = "caique";
+			player.last_saved = new Date().getTime();
+			player.life = 90;
+			List<Integer> positions = new ArrayList<Integer>();
+			positions.add(30);
+			positions.add(20);
+			player.position = positions;
+			
+			DataBaseManager.getInstance().insertPlayer(player);
+			Player playerOne = DataBaseManager.getInstance().getPlayer("william");
+			Player playerTwo = DataBaseManager.getInstance().getPlayer("caique");
+			
+			playerTwo.life = 150;
+			
+			DataBaseManager.getInstance().updatePlayer(playerTwo);
+			playerTwo = DataBaseManager.getInstance().getPlayer("caique");
+			
+	}*/
 
 }

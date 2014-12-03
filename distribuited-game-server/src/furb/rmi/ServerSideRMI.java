@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import furb.db.DataBaseManager;
 import thrift.stubs.Player;
 
 public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
@@ -15,9 +16,9 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 	}
 
 	@Override
-	public Player getPlayerInfo() throws RemoteException {
-		//TODO
-		return null;
+	public Player getPlayerInfo(String userName) throws RemoteException {
+		System.out.println("chegou aqui");
+		return DataBaseManager.getInstance().getPlayer(userName);
 	}
 
 	@Override
