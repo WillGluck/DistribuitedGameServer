@@ -68,13 +68,17 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 	}
 
 	@Override
-	public void removeRegion(int regionCode) throws RemoteException {
-		ServerSharedInfo.getInstance().getOnlineServers().remove(regionCode);		
+	public void removeRegion(int regionCode) throws RemoteException {	
+		ServerSharedInfo.getInstance().lockResource();
+		ServerSharedInfo.getInstance().getRegions().remove(regionCode);
+		ServerSharedInfo.getInstance().unlockResource();
 	}
 
 	@Override
-	public void addRegion(int regionCode) throws RemoteException {		
+	public void addRegion(int regionCode) throws RemoteException {	
+		ServerSharedInfo.getInstance().lockResource();
 		ServerSharedInfo.getInstance().getRegions().put(regionCode, new Region(regionCode));
+		ServerSharedInfo.getInstance().unlockResource();
 	}	
 	
 }

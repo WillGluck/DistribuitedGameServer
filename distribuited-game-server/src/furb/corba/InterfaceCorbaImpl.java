@@ -13,7 +13,6 @@ public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 	public boolean checkForRegion(int regionCode) {		
 		for (Region region :ServerSharedInfo.getInstance().getRegions().values()) {
 			if (region.getRegionNumber() == regionCode) {
-				System.out.println("eita");
 				return true;
 			}
 		}
@@ -23,19 +22,22 @@ public class InterfaceCorbaImpl extends InterfaceCorbaPOA {
 
 	@Override
 	public void updatePlayer(String userName) {
+		
 		ClientSideCorba corba = new ClientSideCorba();
 		String serverID = null;
 		long biggerTimestamp = 0;
-		for (String server : ServerSharedInfo.getInstance().getOnlineServers()) {
+		
+		for (String server : ServerSharedInfo.getInstance().getOnlineServers()) {		
 			long tempTimestamp = corba.getPlayerTimestamp(server, userName);
 			if (biggerTimestamp < tempTimestamp) {
 				serverID = server;
 				biggerTimestamp = tempTimestamp;
 			}
 		}
+		
 		ClientSideRMI rmi = new ClientSideRMI();
-		Player player = rmi.getPlayerInfo(serverID, userName);
-		DataBaseManager.getInstance().updatePlayer(player);
+		Player player = rmi.getPlayerInfo(serverID, userName);			
+		DataBaseManager.getInstance().updatePlayer(player);	
 	}
 
 	@Override
