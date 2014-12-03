@@ -48,7 +48,7 @@ public class DataBaseManager {
 			while (result.next()) {
 				player = new Player();
 				player.name = result.getString(USERNAME);
-				player.last_saved = result.getTimestamp(LAST_SAVED).getTime();
+				player.last_saved = result.getLong(LAST_SAVED);
 				player.life = result.getInt(LIFE_POINTS);
 				player.area = result.getInt(AREA);
 				int positionX = result.getInt(POSITION_X);
@@ -67,9 +67,9 @@ public class DataBaseManager {
 	public void updatePlayer(Player player) {
 		try {
 			Statement statement = this.db.createStatement();
-			String sql = "update player set " + LAST_SAVED 	+ " = 'datetime()', " + LIFE_POINTS + " = " + player.life + ", "
+			String sql = "update player set " + LIFE_POINTS + " = " + player.life + ", "
 					+ POSITION_X 	+ " = " + player.position.get(0) + ", " + POSITION_Y 	+ " = " + player.position.get(1) + ", " + AREA + " = " + player.area  
-					+ " where " + USERNAME + " = '"	+ player.name + "';"; 
+					+ LAST_SAVED + " = " + new Date().getTime() + " where " + USERNAME + " = '"	+ player.name + "';"; 
 											  
 			statement.execute(sql);			
 		} catch (SQLException sqle) {
@@ -80,8 +80,8 @@ public class DataBaseManager {
 	public void insertPlayer(Player player) {
 		try {
 			Statement statement = this.db.createStatement();
-			String sql = "insert into player values ('" + player.name + "'," + player.life + "," + player.area + "," + player.position.get(0) +	"," + player.position.get(1) + "," 
-					+ "'datetime()');";											  
+			String sql = "insert into player values ('" + player.name + "'," + player.life + "," + player.area + "," + player.position.get(0) +	"," 
+							+ player.position.get(1) + "," + new Date().getTime() + ");";											  
 			statement.execute(sql);			
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -118,7 +118,8 @@ public class DataBaseManager {
 	private void createTables() {
 		try {
 			Statement statement = this.db.createStatement();
-			String createTable = "create table player (user_name varchar primary key,life numeric, area numeric,position_x numeric,position_Y numeric,last_saved timestamp)";	
+			String createTable = "create table player (user_name varchar primary key,life numeric, area numeric,"
+					+ "position_x numeric,position_Y numeric, last_saved integer)";	
 			statement.execute(createTable);
 		} catch (SQLException e) {		
 			e.printStackTrace();
