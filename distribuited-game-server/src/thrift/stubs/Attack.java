@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
 public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, java.io.Serializable, Cloneable, Comparable<Attack> {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("Attack");
 
-  private static final org.apache.thrift.protocol.TField FROM_FIELD_DESC = new org.apache.thrift.protocol.TField("from", org.apache.thrift.protocol.TType.STRING, (short)1);
-  private static final org.apache.thrift.protocol.TField TO_FIELD_DESC = new org.apache.thrift.protocol.TField("to", org.apache.thrift.protocol.TType.STRING, (short)2);
+  private static final org.apache.thrift.protocol.TField ATTCKER_FIELD_DESC = new org.apache.thrift.protocol.TField("attcker", org.apache.thrift.protocol.TType.STRING, (short)1);
+  private static final org.apache.thrift.protocol.TField ATTACKED_FIELD_DESC = new org.apache.thrift.protocol.TField("attacked", org.apache.thrift.protocol.TType.STRING, (short)2);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -47,13 +47,13 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
     schemes.put(TupleScheme.class, new AttackTupleSchemeFactory());
   }
 
-  public String from; // required
-  public String to; // required
+  public String attcker; // required
+  public String attacked; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    FROM((short)1, "from"),
-    TO((short)2, "to");
+    ATTCKER((short)1, "attcker"),
+    ATTACKED((short)2, "attacked");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -68,10 +68,10 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
      */
     public static _Fields findByThriftId(int fieldId) {
       switch(fieldId) {
-        case 1: // FROM
-          return FROM;
-        case 2: // TO
-          return TO;
+        case 1: // ATTCKER
+          return ATTCKER;
+        case 2: // ATTACKED
+          return ATTACKED;
         default:
           return null;
       }
@@ -115,9 +115,9 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.FROM, new org.apache.thrift.meta_data.FieldMetaData("from", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+    tmpMap.put(_Fields.ATTCKER, new org.apache.thrift.meta_data.FieldMetaData("attcker", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.TO, new org.apache.thrift.meta_data.FieldMetaData("to", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+    tmpMap.put(_Fields.ATTACKED, new org.apache.thrift.meta_data.FieldMetaData("attacked", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Attack.class, metaDataMap);
@@ -127,23 +127,23 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
   }
 
   public Attack(
-    String from,
-    String to)
+    String attcker,
+    String attacked)
   {
     this();
-    this.from = from;
-    this.to = to;
+    this.attcker = attcker;
+    this.attacked = attacked;
   }
 
   /**
    * Performs a deep copy on <i>other</i>.
    */
   public Attack(Attack other) {
-    if (other.isSetFrom()) {
-      this.from = other.from;
+    if (other.isSetAttcker()) {
+      this.attcker = other.attcker;
     }
-    if (other.isSetTo()) {
-      this.to = other.to;
+    if (other.isSetAttacked()) {
+      this.attacked = other.attacked;
     }
   }
 
@@ -153,73 +153,73 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
 
   @Override
   public void clear() {
-    this.from = null;
-    this.to = null;
+    this.attcker = null;
+    this.attacked = null;
   }
 
-  public String getFrom() {
-    return this.from;
+  public String getAttcker() {
+    return this.attcker;
   }
 
-  public Attack setFrom(String from) {
-    this.from = from;
+  public Attack setAttcker(String attcker) {
+    this.attcker = attcker;
     return this;
   }
 
-  public void unsetFrom() {
-    this.from = null;
+  public void unsetAttcker() {
+    this.attcker = null;
   }
 
-  /** Returns true if field from is set (has been assigned a value) and false otherwise */
-  public boolean isSetFrom() {
-    return this.from != null;
+  /** Returns true if field attcker is set (has been assigned a value) and false otherwise */
+  public boolean isSetAttcker() {
+    return this.attcker != null;
   }
 
-  public void setFromIsSet(boolean value) {
+  public void setAttckerIsSet(boolean value) {
     if (!value) {
-      this.from = null;
+      this.attcker = null;
     }
   }
 
-  public String getTo() {
-    return this.to;
+  public String getAttacked() {
+    return this.attacked;
   }
 
-  public Attack setTo(String to) {
-    this.to = to;
+  public Attack setAttacked(String attacked) {
+    this.attacked = attacked;
     return this;
   }
 
-  public void unsetTo() {
-    this.to = null;
+  public void unsetAttacked() {
+    this.attacked = null;
   }
 
-  /** Returns true if field to is set (has been assigned a value) and false otherwise */
-  public boolean isSetTo() {
-    return this.to != null;
+  /** Returns true if field attacked is set (has been assigned a value) and false otherwise */
+  public boolean isSetAttacked() {
+    return this.attacked != null;
   }
 
-  public void setToIsSet(boolean value) {
+  public void setAttackedIsSet(boolean value) {
     if (!value) {
-      this.to = null;
+      this.attacked = null;
     }
   }
 
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
-    case FROM:
+    case ATTCKER:
       if (value == null) {
-        unsetFrom();
+        unsetAttcker();
       } else {
-        setFrom((String)value);
+        setAttcker((String)value);
       }
       break;
 
-    case TO:
+    case ATTACKED:
       if (value == null) {
-        unsetTo();
+        unsetAttacked();
       } else {
-        setTo((String)value);
+        setAttacked((String)value);
       }
       break;
 
@@ -228,11 +228,11 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
 
   public Object getFieldValue(_Fields field) {
     switch (field) {
-    case FROM:
-      return getFrom();
+    case ATTCKER:
+      return getAttcker();
 
-    case TO:
-      return getTo();
+    case ATTACKED:
+      return getAttacked();
 
     }
     throw new IllegalStateException();
@@ -245,10 +245,10 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
     }
 
     switch (field) {
-    case FROM:
-      return isSetFrom();
-    case TO:
-      return isSetTo();
+    case ATTCKER:
+      return isSetAttcker();
+    case ATTACKED:
+      return isSetAttacked();
     }
     throw new IllegalStateException();
   }
@@ -266,21 +266,21 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
     if (that == null)
       return false;
 
-    boolean this_present_from = true && this.isSetFrom();
-    boolean that_present_from = true && that.isSetFrom();
-    if (this_present_from || that_present_from) {
-      if (!(this_present_from && that_present_from))
+    boolean this_present_attcker = true && this.isSetAttcker();
+    boolean that_present_attcker = true && that.isSetAttcker();
+    if (this_present_attcker || that_present_attcker) {
+      if (!(this_present_attcker && that_present_attcker))
         return false;
-      if (!this.from.equals(that.from))
+      if (!this.attcker.equals(that.attcker))
         return false;
     }
 
-    boolean this_present_to = true && this.isSetTo();
-    boolean that_present_to = true && that.isSetTo();
-    if (this_present_to || that_present_to) {
-      if (!(this_present_to && that_present_to))
+    boolean this_present_attacked = true && this.isSetAttacked();
+    boolean that_present_attacked = true && that.isSetAttacked();
+    if (this_present_attacked || that_present_attacked) {
+      if (!(this_present_attacked && that_present_attacked))
         return false;
-      if (!this.to.equals(that.to))
+      if (!this.attacked.equals(that.attacked))
         return false;
     }
 
@@ -291,15 +291,15 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
   public int hashCode() {
     List<Object> list = new ArrayList<Object>();
 
-    boolean present_from = true && (isSetFrom());
-    list.add(present_from);
-    if (present_from)
-      list.add(from);
+    boolean present_attcker = true && (isSetAttcker());
+    list.add(present_attcker);
+    if (present_attcker)
+      list.add(attcker);
 
-    boolean present_to = true && (isSetTo());
-    list.add(present_to);
-    if (present_to)
-      list.add(to);
+    boolean present_attacked = true && (isSetAttacked());
+    list.add(present_attacked);
+    if (present_attacked)
+      list.add(attacked);
 
     return list.hashCode();
   }
@@ -312,22 +312,22 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
 
     int lastComparison = 0;
 
-    lastComparison = Boolean.valueOf(isSetFrom()).compareTo(other.isSetFrom());
+    lastComparison = Boolean.valueOf(isSetAttcker()).compareTo(other.isSetAttcker());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetFrom()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.from, other.from);
+    if (isSetAttcker()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.attcker, other.attcker);
       if (lastComparison != 0) {
         return lastComparison;
       }
     }
-    lastComparison = Boolean.valueOf(isSetTo()).compareTo(other.isSetTo());
+    lastComparison = Boolean.valueOf(isSetAttacked()).compareTo(other.isSetAttacked());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetTo()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.to, other.to);
+    if (isSetAttacked()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.attacked, other.attacked);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -352,19 +352,19 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
     StringBuilder sb = new StringBuilder("Attack(");
     boolean first = true;
 
-    sb.append("from:");
-    if (this.from == null) {
+    sb.append("attcker:");
+    if (this.attcker == null) {
       sb.append("null");
     } else {
-      sb.append(this.from);
+      sb.append(this.attcker);
     }
     first = false;
     if (!first) sb.append(", ");
-    sb.append("to:");
-    if (this.to == null) {
+    sb.append("attacked:");
+    if (this.attacked == null) {
       sb.append("null");
     } else {
-      sb.append(this.to);
+      sb.append(this.attacked);
     }
     first = false;
     sb.append(")");
@@ -410,18 +410,18 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
           break;
         }
         switch (schemeField.id) {
-          case 1: // FROM
+          case 1: // ATTCKER
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.from = iprot.readString();
-              struct.setFromIsSet(true);
+              struct.attcker = iprot.readString();
+              struct.setAttckerIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 2: // TO
+          case 2: // ATTACKED
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.to = iprot.readString();
-              struct.setToIsSet(true);
+              struct.attacked = iprot.readString();
+              struct.setAttackedIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
@@ -441,14 +441,14 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
-      if (struct.from != null) {
-        oprot.writeFieldBegin(FROM_FIELD_DESC);
-        oprot.writeString(struct.from);
+      if (struct.attcker != null) {
+        oprot.writeFieldBegin(ATTCKER_FIELD_DESC);
+        oprot.writeString(struct.attcker);
         oprot.writeFieldEnd();
       }
-      if (struct.to != null) {
-        oprot.writeFieldBegin(TO_FIELD_DESC);
-        oprot.writeString(struct.to);
+      if (struct.attacked != null) {
+        oprot.writeFieldBegin(ATTACKED_FIELD_DESC);
+        oprot.writeString(struct.attacked);
         oprot.writeFieldEnd();
       }
       oprot.writeFieldStop();
@@ -469,18 +469,18 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
     public void write(org.apache.thrift.protocol.TProtocol prot, Attack struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       BitSet optionals = new BitSet();
-      if (struct.isSetFrom()) {
+      if (struct.isSetAttcker()) {
         optionals.set(0);
       }
-      if (struct.isSetTo()) {
+      if (struct.isSetAttacked()) {
         optionals.set(1);
       }
       oprot.writeBitSet(optionals, 2);
-      if (struct.isSetFrom()) {
-        oprot.writeString(struct.from);
+      if (struct.isSetAttcker()) {
+        oprot.writeString(struct.attcker);
       }
-      if (struct.isSetTo()) {
-        oprot.writeString(struct.to);
+      if (struct.isSetAttacked()) {
+        oprot.writeString(struct.attacked);
       }
     }
 
@@ -489,12 +489,12 @@ public class Attack implements org.apache.thrift.TBase<Attack, Attack._Fields>, 
       TTupleProtocol iprot = (TTupleProtocol) prot;
       BitSet incoming = iprot.readBitSet(2);
       if (incoming.get(0)) {
-        struct.from = iprot.readString();
-        struct.setFromIsSet(true);
+        struct.attcker = iprot.readString();
+        struct.setAttckerIsSet(true);
       }
       if (incoming.get(1)) {
-        struct.to = iprot.readString();
-        struct.setToIsSet(true);
+        struct.attacked = iprot.readString();
+        struct.setAttackedIsSet(true);
       }
     }
   }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 import furb.models.Region;
 
@@ -15,8 +16,7 @@ public class ServerSharedInfo {
 	
 	private static ServerSharedInfo self;
 	
-	private Object lock = new Object();
-	private boolean using_resources = false;
+	private ReentrantLock lock = new ReentrantLock();
 	
 	private ServerSharedInfo(String self_ip) {
 		this.self_ip = self_ip;
@@ -25,19 +25,11 @@ public class ServerSharedInfo {
 	}
 	
 	public synchronized void lockResource() {
-		while (using_resources) {
-			try {
-				lock.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		using_resources = true;
+		lock.lock();
 	}
 	
 	public synchronized void unlockResource() {
-		using_resources = false;
-		lock.notifyAll();
+		lock.unlock();
 	}
 	
 	public String getSelfIp() {
