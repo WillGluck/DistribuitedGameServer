@@ -15,6 +15,7 @@ import thrift.stubs.Player;
 public class DataBaseManager {
 		
 	private static final String USERNAME = "user_name";
+	private static final String AREA = "area";
 	private static final String LAST_SAVED = "last_saved";
 	private static final String LIFE_POINTS = "life";
 	private static final String POSITION_X = "position_x";
@@ -45,6 +46,7 @@ public class DataBaseManager {
 				player.name = result.getString(USERNAME);
 				player.last_saved = result.getTimestamp(LAST_SAVED).getTime();
 				player.life = result.getInt(LIFE_POINTS);
+				player.area = result.getInt(AREA);
 				int positionX = result.getInt(POSITION_X);
 				int positionY = result.getInt(POSITION_Y);
 				List<Integer> positions = new ArrayList<Integer>();
@@ -61,8 +63,9 @@ public class DataBaseManager {
 	public void updatePlayer(Player player) {
 		try {
 			Statement statement = this.db.createStatement();
-			String sql = "update player set " + LAST_SAVED 	+ " = to_timestamp(" + new Date().getTime() + ")," + LIFE_POINTS + " = " + player.life + ","
-					+ POSITION_X 	+ " = " + player.position.get(0) + "," + POSITION_Y 	+ " = " + player.position.get(1) + "where " + USERNAME + "='" + player.name + "';"; 
+			String sql = "update player set " + LAST_SAVED 	+ " = to_timestamp(" + new Date().getTime() + "), " + LIFE_POINTS + " = " + player.life + ", "
+					+ POSITION_X 	+ " = " + player.position.get(0) + ", " + POSITION_Y 	+ " = " + player.position.get(1) + ", " + AREA + " = " + player.area  
+					+ " where " + USERNAME + " = '"	+ player.name + "';"; 
 											  
 			statement.execute(sql);			
 		} catch (SQLException sqle) {
@@ -73,7 +76,7 @@ public class DataBaseManager {
 	public void insertPlayer(Player player) {
 		try {
 			Statement statement = this.db.createStatement();
-			String sql = "insert into player values ('" + player.name + "'," + player.life + "," + player.position.get(0) +	"," + player.position.get(1) + "," 
+			String sql = "insert into player values ('" + player.name + "'," + player.life + "," + player.area + "," + player.position.get(0) +	"," + player.position.get(1) + "," 
 					+ "to_timestamp(" + new Date().getTime() + "));";											  
 			statement.execute(sql);			
 		} catch (SQLException sqle) {
@@ -98,7 +101,7 @@ public class DataBaseManager {
 	private void createTables() {
 		try {
 			Statement statement = this.db.createStatement();
-			String createTable = "create table player (user_name varchar primary key,life numeric,position_x numeric,position_Y numeric,last_saved timestamp)";	
+			String createTable = "create table player (user_name varchar primary key,life numeric, area numeric,position_x numeric,position_Y numeric,last_saved timestamp)";	
 			statement.execute(createTable);
 		} catch (SQLException e) {		
 			e.printStackTrace();
@@ -106,7 +109,7 @@ public class DataBaseManager {
 		
 	}
 	
-	/*	public static void main(String[] args) {
+		public static void main(String[] args) {
 			
 			Player player = new Player();
 			player.name = "caique";
@@ -126,6 +129,6 @@ public class DataBaseManager {
 			DataBaseManager.getInstance().updatePlayer(playerTwo);
 			playerTwo = DataBaseManager.getInstance().getPlayer("caique");
 			
-	}*/
+	}
 
 }
