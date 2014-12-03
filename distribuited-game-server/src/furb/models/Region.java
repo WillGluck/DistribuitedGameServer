@@ -11,6 +11,8 @@ public class Region {
 	
 	private Map<String, Player> players;
 	private int regionNumber;
+	private int bound_x = 25;
+	private int bound_y = 25;
 	
 	public Region(int regionNumber) {
 		this.regionNumber = regionNumber;
@@ -28,8 +30,17 @@ public class Region {
 	public int getRegionNumber() {
 		return regionNumber;
 	}
+	
 	public void setRegionNumber(int regionNumber) {
 		this.regionNumber = regionNumber;
 	}	
+	
+	public int getBound_x() {
+		return bound_x;
+	}
+	
+	public int getBound_y() {
+		return bound_y;
+	}
 
 }
