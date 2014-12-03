@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.thrift.TException;
 
+import furb.db.DataBaseManager;
 import furb.models.Region;
 import thrift.stubs.*;
 
@@ -22,27 +23,22 @@ public class GameHandler implements Game.Iface {
 
 	@Override
 	public String login(String user) throws TException {
-		//TODO load player from database and request server for region the player is in
+		Player player = DataBaseManager.getInstance().getPlayer(user);
+		if (player == null) {
+			return "";
+		}
+		//TODO request server for region the player is in
 		return serverInfo.getSelfIp();
 	}
 
 	@Override
 	public Player get_player(String user) throws TException {
-		Player player = new Player(); //TODO load from database
-		try {
-		player.name = "player";
-		player.area = 1;
-		player.life = 100;
-		player.position = new ArrayList<Integer>();
-		player.position.add(1);
-		player.position.add(1);
-		player.last_saved = System.currentTimeMillis();
+		Player player = DataBaseManager.getInstance().getPlayer(user);
+
 		serverInfo.lockResource();
 		serverInfo.getRegions().get(player.area).addPlayer(player);
 		serverInfo.unlockResource();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		return player;
 	}
 
@@ -107,7 +103,17 @@ public class GameHandler implements Game.Iface {
 	public List<Attack> update_self(String name) throws TException {
 		List<Attack> attacks = attack_buffer.get(name);
 		attack_buffer.remove(name);
-		//TODO update player in database
+		
+		Region region = null;
+		for (Region region2 : serverInfo.getRegions().values()) {
+			if (region2.getPlayers().containsKey(name)) {
+				region = region2;
+				break;
+			}
+		}
+		Player player = region.getPlayers().get(name);
+		DataBaseManager.getInstance().updatePlayer(player);
+		
 		if (attacks == null)
 			attacks = new ArrayList<Attack>(0);
 		return attacks;
