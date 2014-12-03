@@ -67,7 +67,7 @@ public class DataBaseManager {
 	public void updatePlayer(Player player) {
 		try {
 			Statement statement = this.db.createStatement();
-			String sql = "update player set " + LAST_SAVED 	+ " = to_timestamp(" + new Date().getTime() + "), " + LIFE_POINTS + " = " + player.life + ", "
+			String sql = "update player set " + LAST_SAVED 	+ " = 'datetime()', " + LIFE_POINTS + " = " + player.life + ", "
 					+ POSITION_X 	+ " = " + player.position.get(0) + ", " + POSITION_Y 	+ " = " + player.position.get(1) + ", " + AREA + " = " + player.area  
 					+ " where " + USERNAME + " = '"	+ player.name + "';"; 
 											  
@@ -81,7 +81,7 @@ public class DataBaseManager {
 		try {
 			Statement statement = this.db.createStatement();
 			String sql = "insert into player values ('" + player.name + "'," + player.life + "," + player.area + "," + player.position.get(0) +	"," + player.position.get(1) + "," 
-					+ "to_timestamp(" + new Date().getTime() + "));";											  
+					+ "'datetime()');";											  
 			statement.execute(sql);			
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -100,8 +100,8 @@ public class DataBaseManager {
 	
 	private void initDataBase() {
 		try {
-			Class.forName("org.postgresql.Driver");
-			this.db = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "pfafveiou");
+			Class.forName(SQLITE_FOR_CLASS);
+			this.db = DriverManager.getConnection(SQLITE_URL);
 			DatabaseMetaData dbm = this.db.getMetaData();			
 			ResultSet tables = dbm.getTables(null, null, "player", null);
 			if (!tables.next()) {
@@ -125,6 +125,14 @@ public class DataBaseManager {
 		}
 		
 	}
+	
+	private static final String POSTGRESQL_FOR_CLASS = "org.postgresql.Driver";
+	private static final String POSTGRESQL_URL = "jdbc:postgresql://localhost:5432/postgres";
+	private static final String POSTGRESQL_USER = "postgres";
+	private static final String POSTGRESQL_PASSWORD = "pfafveiou";
+	
+	private static final String SQLITE_FOR_CLASS = "org.sqlite.JDBC";
+	private static final String SQLITE_URL = "jdbc:sqlite:mine.db";
 	
 //		public static void main(String[] args) {
 //			
