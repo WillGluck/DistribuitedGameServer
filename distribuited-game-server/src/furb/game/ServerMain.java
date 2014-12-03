@@ -36,7 +36,7 @@ public class ServerMain {
 	public static void main(String[] args) throws TTransportException {
 		ServerMain.initWebService(args[0]);
 		ServerMain.initRMI(args[0]);
-		ServerMain.initCorba(args[0]);		
+		ServerMain.initCorba(args[0]);
 		ServerMain.initThrift();
 		
 		ServerSharedInfo.instantiate(args[0]);
@@ -57,7 +57,6 @@ public class ServerMain {
 		}
 		
 		ServerMain.temp();
-
 	}
 	
 	private static void temp() {

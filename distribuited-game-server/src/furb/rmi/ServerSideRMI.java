@@ -21,6 +21,7 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 
 	@Override
 	public Player getPlayerInfo(String userName) throws RemoteException {
+		System.out.println("[RMI] getPlayerInfo executado");
 		return DataBaseManager.getInstance().getPlayer(userName);
 	}
 
@@ -59,11 +60,13 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 		}
 		
 		ServerSharedInfo.getInstance().getOnlineServers().add(ip);
+		System.out.println("[RMI] newServer executado");
 	}
 
 	@Override
 	public Map<Integer, Region> broadcastNewServer(String ip) throws RemoteException {
 		ServerSharedInfo.getInstance().getOnlineServers().add(ip);
+		System.out.println("[RMI] broadcastNewServer executado");
 		return ServerSharedInfo.getInstance().getRegions();
 	}
 
@@ -72,6 +75,7 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 		ServerSharedInfo.getInstance().lockResource();
 		ServerSharedInfo.getInstance().getRegions().remove(regionCode);
 		ServerSharedInfo.getInstance().unlockResource();
+		System.out.println("[RMI] removeRegion executado");
 	}
 
 	@Override
@@ -79,6 +83,7 @@ public class ServerSideRMI extends UnicastRemoteObject implements InterfaceRmi {
 		ServerSharedInfo.getInstance().lockResource();
 		ServerSharedInfo.getInstance().getRegions().put(regionCode, new Region(regionCode));
 		ServerSharedInfo.getInstance().unlockResource();
+		System.out.println("[RMI] addRegion executado");
 	}	
 	
 }
