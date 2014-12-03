@@ -1,7 +1,7 @@
 interface InterfaceCorba {
 
-    boolean checkForRegion(in short regionCode);
+    boolean checkForRegion(in long regionCode);
     void updatePlayer(in string userName);  
-    long getPlayerTimestamp(in string userName);
+    long long getPlayerTimestamp(in string userName);
 
 };
