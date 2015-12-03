@@ -1,4 +1,3 @@
-distribuited-game-server
+Distribuited Game Server
 ========================
-
-DistribuitedGameServer
+A distribuited game server using rmi, corba, thrift...
